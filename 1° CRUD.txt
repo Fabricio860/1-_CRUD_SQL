@@ -1,0 +1,102 @@
+--CREATE TABLE Criando tabela e colocando PK
+
+create table tb_emplo --escrito errado "vou corrigir com alter table"
+(cod_tabela number (3) constraint pk_tabela primary key,
+nome_exemplo varchar2 (30));
+
+--DESC   Ver toda descrição da tabela DESC
+desc tb_emplo;
+
+--Alter Table (Alterar a estrutura da tabela):
+--Acresentandou ou Retirando
+--Renomear a tabela ou Coluna
+--Acresentar, Retirar, Ativar, Destativar CONSTRAINSTS.
+
+--ALTER TABLE  Corrindo no nome da tabela:
+
+alter table tb_emplo rename to tb_exemplo;
+
+desc tb_exemplo;
+
+--ALTER TABLE  Alterando nome da tabela novamente 
+
+alter table tb_exemplo rename to tb_aula;
+
+select * from tb_aula;
+
+--ALTER TABLE Renomeando Campos
+
+alter table tb_aula rename column nome_exemplo to nome_aula; 
+
+--ALTER TABLE Acrescentando um novo Campo na tabela
+alter table tb_aula add horario char (10);
+
+desc tb_aula;
+
+--ALTER TABLE Alterando valores dos tipos ja desclarados, ex: Char (10) para Char (20), ex: not null
+
+alter table tb_aula modify horario char (20);
+
+desc tb_aula;
+
+alter table tb_aula modify horario char (15) constraint nn_horario not null;
+
+desc tb_aula;
+
+--UNIQUE Acrescentando CONSTRAINT ex: UNIQUE 'unica'
+
+alter table tb_aula add constraint un_horario unique (horario);
+
+desc tb_aula;
+-- DROP COLUMN  Excluindo um campo da tabela
+
+alter table tb_aula drop column nome_aula;
+
+-- DROP Excluir tabela inteira
+drop table tb_aula;
+
+desc tb_aula;
+
+--Criando tabela para inserir dados
+create table tb_exemplo
+(cod_exemplo number (3) constraint pk_exemplo primary key, 
+nome_exemplo varchar2 (30) ); 
+
+desc tb_exemplo;
+
+--INSERT  inserir dados na tabela
+
+--Sintaxe: insert into nome_da_tabela (campo1,campo2,campo3) values (valor1,valor2,valor3)
+
+insert into tb_exemplo (cod_exemplo,nome_exemplo) values (1,'registro1');
+insert into tb_exemplo (cod_exemplo,nome_exemplo) values (2,'registro2');
+insert into tb_exemplo (cod_exemplo,nome_exemplo) values (3,'registro3');
+select * from tb_exemplo;
+
+--acresentando um campo na tabela
+
+alter table tb_exemplo add desc_exemplo varchar2 (100);
+
+--INSERT  (detalhes)
+--inserindo 3 dados com todos preenchidos
+insert into tb_exemplo (cod_exemplo,nome_exemplo, desc_exemplo) values (4,'registro4','descrição3') ;
+select * from tb_exemplo; -- apareceu null em outros registros, devido não haver valores inseridos
+
+-- invertendo as ordens para inserir dados
+insert into tb_exemplo (nome_exemplo,desc_exemplo, cod_exemplo) values ('registro5','descrição5',5) ;
+select * from tb_exemplo; -- não importa a ordem de inserção dados, ele sempre vai estar ordenado da maneira que foi criado
+
+-- inserir dados sem indicar os campos
+insert into tb_exemplo values (6,'registro6','descrição6');
+select * from tb_exemplo; -- Ele reconhe os campos automaticamente 
+
+--inserindo 1 dado com o campo null
+insert into tb_exemplo values (7,'registro7',null);
+select * from tb_exemplo; --não houver alguma constraint pode ser add
+
+--inserir apenas 1 dado na campo
+insert into tb_exemplo (cod_exemplo) values (8);
+select * from tb_exemplo; 
+
+
+
